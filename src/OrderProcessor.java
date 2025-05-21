@@ -14,9 +14,21 @@ public class OrderProcessor {
 //        } else if (isMember) {                  // 条件E: order が null かつ会員ならエラー通知
 //            notifyErrorForMember();           // R
 //        }
-        if(isChargeRushFee(order, inStock, isRush)){chargeRushFee(order);}
-        if(isPutOnBackorder(order, inStock, isMember)){putOnBackorder(order); }
-        if(isNotifyErrorForMember(order, isMember)){notifyErrorForMember();}
+//        if(isChargeRushFee(order, inStock, isRush)){chargeRushFee(order);}
+//        if(isPutOnBackorder(order, inStock, isMember)){putOnBackorder(order); }
+//        if(isNotifyErrorForMember(order, isMember)){notifyErrorForMember();}
+        if(null == order && !isMember){
+            return;
+        }
+        if(inStock && isRush) {
+            chargeRushFee(order);
+            return;
+        }
+        if(!inStock && isMember) {
+            putOnBackorder(order);
+            return;
+        };
+        notifyErrorForMember();
     }
 
     private static boolean isChargeRushFee(Order o, boolean s, boolean r) {
